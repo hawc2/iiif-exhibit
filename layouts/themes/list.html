@@ -1,0 +1,87 @@
+{{ define "main" }}
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Category</p>
+    <h1>{{ .Title }}</h1>
+    <div class="lead">{{ .Content }}</div>
+  </div>
+</section>
+
+{{ $items := site.Data.posters.items }}
+{{ $themes := slice }}
+{{ range $items }}
+  {{ if not (in $themes .theme) }}
+    {{ $themes = $themes | append .theme }}
+  {{ end }}
+{{ end }}
+{{ $themes = sort $themes }}
+
+{{ range $themes }}
+  {{ $theme := . }}
+  {{ $themeItems := where $items "theme" $theme }}
+  <section class="wrap">
+    <div class="section-title">
+      <h2>{{ $theme }}</h2>
+      <p>{{ len $themeItems }} posters</p>
+    </div>
+    <div class="card-grid">
+      {{ range $index, $item := $themeItems }}
+        {{ $image := "" }}
+        {{ $service := "" }}
+        {{ $manifestTry := try (resources.GetRemote $item.manifest) }}
+        {{ if and $manifestTry (not $manifestTry.Err) }}
+          {{ $manifest := $manifestTry.Value | transform.Unmarshal }}
+          {{ $seq := index $manifest.sequences 0 }}
+          {{ if $seq }}
+            {{ $canvas := index $seq.canvases 0 }}
+            {{ if $canvas }}
+              {{ $img := index $canvas.images 0 }}
+              {{ if $img }}
+                {{ $res := $img.resource }}
+                {{ if $res }}
+                  {{ $resId := index $res "@id" }}
+                  {{ if $resId }}
+                    {{ $image = $resId }}
+                  {{ end }}
+                  {{ $svc := index $res "service" }}
+                  {{ if $svc }}
+                    {{ $svcId := index $svc "@id" }}
+                    {{ if $svcId }}
+                      {{ $service = $svcId }}
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if and (eq $image "") (ne $service "") }}
+          {{ $image = printf "%s/full/full/0/default.jpg" $service }}
+        {{ end }}
+        <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
+          <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
+            <div class="image-frame">
+              <img
+                src="{{ $image }}"
+                alt="{{ $item.title }}"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </a>
+          <div class="card-body">
+            <h3>{{ $item.title }}</h3>
+            <p class="meta">{{ $item.country }} · {{ $item.year }} · {{ $item.theme }}</p>
+            <p class="summary">{{ $item.summary }}</p>
+            <div class="chip-row">
+              <span class="chip">Artist: {{ $item.artist }}</span>
+              <a class="chip link" href="{{ $item.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
+              <a class="chip link" href="{{ $item.record }}" target="_blank" rel="noopener">Record</a>
+            </div>
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}
+{{ end }}

@@ -87,23 +87,43 @@
   </div>
   <div class="card-grid">
     {{ range $index, $item := $items }}
-      {{ $service := replace (replace $item.manifest "/iiif/" "/iiif/2/") "/manifest.json" "" }}
-      {{ $info := getJSON (printf "%s/info.json" $service) }}
-      {{ $sizes := $info.sizes | default (slice (dict "width" 1200 "height" 1600)) }}
-      {{ $sizeCount := len $sizes }}
-      {{ $largeIndex := sub $sizeCount 1 }}
-      {{ $thumbIndex := cond (gt $sizeCount 2) (sub $sizeCount 3) (cond (gt $sizeCount 1) (sub $sizeCount 2) $largeIndex) }}
-      {{ $thumbSize := index $sizes $thumbIndex }}
-      {{ $largeSize := index $sizes $largeIndex }}
-      {{ $thumb := printf "%s/full/%d,%d/0/default.jpg" $service $thumbSize.width $thumbSize.height }}
-      {{ $large := printf "%s/full/%d,%d/0/default.jpg" $service $largeSize.width $largeSize.height }}
+      {{ $image := "" }}
+      {{ $service := "" }}
+      {{ $manifestTry := try (resources.GetRemote $item.manifest) }}
+      {{ if and $manifestTry (not $manifestTry.Err) }}
+        {{ $manifest := $manifestTry.Value | transform.Unmarshal }}
+        {{ $seq := index $manifest.sequences 0 }}
+        {{ if $seq }}
+          {{ $canvas := index $seq.canvases 0 }}
+          {{ if $canvas }}
+            {{ $img := index $canvas.images 0 }}
+            {{ if $img }}
+              {{ $res := $img.resource }}
+              {{ if $res }}
+                {{ $resId := index $res "@id" }}
+                {{ if $resId }}
+                  {{ $image = $resId }}
+                {{ end }}
+                {{ $svc := index $res "service" }}
+                {{ if $svc }}
+                  {{ $svcId := index $svc "@id" }}
+                  {{ if $svcId }}
+                    {{ $service = $svcId }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if and (eq $image "") (ne $service "") }}
+        {{ $image = printf "%s/full/full/0/default.jpg" $service }}
+      {{ end }}
       <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
         <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
           <div class="image-frame">
             <img
-              src="{{ $thumb }}"
-              srcset="{{ $thumb }} {{ $thumbSize.width }}w, {{ $large }} {{ $largeSize.width }}w"
-              sizes="(max-width: 900px) 100vw, 33vw"
+              src="{{ $image }}"
               alt="{{ $item.title }}"
               loading="lazy"
               decoding="async"
