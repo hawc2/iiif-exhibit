@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Space+Grotesk:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Manrope:wght@400;500;600;700&display=swap");
 
 :root {
   --bg: #f7f1e6;
@@ -6,10 +6,14 @@
   --muted: #6d5f52;
   --accent: #c45a2e;
   --accent-dark: #8f3d1d;
+  --accent-soft: rgba(196, 90, 46, 0.12);
   --paper: #fffaf3;
+  --paper-ink: #2b251e;
   --line: rgba(28, 26, 22, 0.12);
-  --shadow: 0 18px 48px rgba(28, 26, 22, 0.15);
+  --shadow: 0 18px 48px rgba(28, 26, 22, 0.12);
   --radius: 18px;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Manrope", "Segoe UI", sans-serif;
 }
 
 * {
@@ -20,8 +24,9 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--bg);
-  font-family: "Space Grotesk", "Segoe UI", sans-serif;
-  line-height: 1.6;
+  font-family: var(--sans);
+  line-height: 1.7;
+  font-size: 16px;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -75,12 +80,12 @@ body::before {
   display: grid;
   place-items: center;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 
 .brand-title {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.2rem;
+  font-family: var(--serif);
+  font-size: 1.25rem;
   margin: 0;
 }
 
@@ -96,25 +101,27 @@ body::before {
 
 .kicker {
   text-transform: uppercase;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.3em;
   color: var(--accent-dark);
   font-size: 0.75rem;
   margin: 0 0 16px;
 }
 
 .hero {
-  padding: 56px 0 40px;
+  padding: 64px 0 48px;
   animation: fadeup 0.8s ease both;
 }
 
 .hero h1 {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 4.6vw, 4.3rem);
+  letter-spacing: -0.02em;
   margin: 0 0 16px;
+  max-width: 760px;
 }
 
 .lead {
-  font-size: 1.1rem;
+  font-size: 1.08rem;
   color: var(--muted);
   max-width: 720px;
 }
@@ -136,8 +143,9 @@ body::before {
 }
 
 .section-title h2 {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 2rem;
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
@@ -158,7 +166,7 @@ body::before {
 
 .panel {
   background: var(--paper);
-  padding: 20px 22px;
+  padding: 22px 24px;
   border-radius: var(--radius);
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
@@ -166,9 +174,9 @@ body::before {
 
 .panel h3 {
   margin: 0 0 14px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   color: var(--accent-dark);
 }
 
@@ -203,7 +211,7 @@ body::before {
   border-radius: calc(var(--radius) + 6px);
   overflow: hidden;
   border: 1px solid var(--line);
-  box-shadow: var(--shadow);
+  box-shadow: 0 22px 45px rgba(28, 26, 22, 0.1);
   display: flex;
   flex-direction: column;
   min-height: 100%;
@@ -218,11 +226,47 @@ body::before {
   background: #f0e7db;
 }
 
-.image-link img {
+.image-frame {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: linear-gradient(135deg, rgba(196, 90, 46, 0.08), rgba(15, 12, 9, 0.04));
+  overflow: hidden;
+}
+
+.image-frame img {
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
   display: block;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.image-frame.is-loaded img {
+  opacity: 1;
+}
+
+.image-status {
+  position: absolute;
+  inset: auto 16px 16px 16px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 250, 243, 0.9);
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: opacity 0.35s ease;
+}
+
+.image-frame.is-loaded .image-status {
+  opacity: 0;
+}
+
+.image-frame.is-error .image-status {
+  opacity: 1;
+  background: rgba(28, 26, 22, 0.85);
+  color: #fffaf3;
 }
 
 .card-body {
@@ -233,19 +277,23 @@ body::before {
 
 .card-body h3 {
   margin: 0;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 1.3rem;
+  font-family: var(--serif);
+  font-size: 1.38rem;
+  line-height: 1.2;
 }
 
 .meta {
   margin: 0;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .summary {
   margin: 0;
-  color: #342f2a;
+  color: var(--paper-ink);
+  font-size: 0.98rem;
 }
 
 .chip-row {
@@ -260,7 +308,7 @@ body::before {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(196, 90, 46, 0.08);
+  background: var(--accent-soft);
   color: var(--accent-dark);
   font-size: 0.78rem;
   text-decoration: none;
@@ -275,7 +323,7 @@ body::before {
   background: var(--accent);
   color: #fff;
   text-decoration: none;
-  padding: 10px 18px;
+  padding: 11px 20px;
   border-radius: 999px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -317,8 +365,8 @@ body::before {
 
 .cta-card h2 {
   margin: 0 0 10px;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 2rem;
+  font-family: var(--serif);
+  font-size: 2.2rem;
 }
 
 .cta-card p {
@@ -362,10 +410,6 @@ body::before {
 }
 
 @media (max-width: 900px) {
-  .image-link img {
-    height: 260px;
-  }
-
   .section-title {
     align-items: flex-start;
   }
