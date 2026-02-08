@@ -1,0 +1,7 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Allied War Posters: IIIF Exhibit"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+[params]
+  description = "A small IIIF-powered exhibit highlighting Allied war posters from Temple University Libraries."

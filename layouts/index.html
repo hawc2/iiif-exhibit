@@ -1,0 +1,130 @@
+{{ define "main" }}
+{{ $data := site.Data.posters }}
+{{ $items := $data.items }}
+
+<section class="hero wrap">
+  <p class="kicker">IIIF Exhibit</p>
+  <h1>{{ .Title }}</h1>
+  <p class="lead">{{ .Params.description }}</p>
+  <div class="hero-actions">
+    <a class="btn" href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">View the full collection</a>
+    <a class="btn ghost" href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF collection manifest</a>
+  </div>
+</section>
+
+{{ $.Scratch.Set "country" (dict) }}
+{{ $.Scratch.Set "theme" (dict) }}
+{{ $.Scratch.Set "artist" (dict) }}
+{{ $.Scratch.Set "year" (dict) }}
+
+{{ range $items }}
+  {{ $countryCounts := $.Scratch.Get "country" }}
+  {{ $countryKey := .country }}
+  {{ $countryValue := index $countryCounts $countryKey | default 0 }}
+  {{ $.Scratch.Set "country" (merge $countryCounts (dict $countryKey (add $countryValue 1))) }}
+
+  {{ $themeCounts := $.Scratch.Get "theme" }}
+  {{ $themeKey := .theme }}
+  {{ $themeValue := index $themeCounts $themeKey | default 0 }}
+  {{ $.Scratch.Set "theme" (merge $themeCounts (dict $themeKey (add $themeValue 1))) }}
+
+  {{ $artistCounts := $.Scratch.Get "artist" }}
+  {{ $artistKey := .artist }}
+  {{ $artistValue := index $artistCounts $artistKey | default 0 }}
+  {{ $.Scratch.Set "artist" (merge $artistCounts (dict $artistKey (add $artistValue 1))) }}
+
+  {{ $yearCounts := $.Scratch.Get "year" }}
+  {{ $yearKey := .year }}
+  {{ $yearValue := index $yearCounts $yearKey | default 0 }}
+  {{ $.Scratch.Set "year" (merge $yearCounts (dict $yearKey (add $yearValue 1))) }}
+{{ end }}
+
+<section class="breakdowns wrap">
+  <div class="section-title">
+    <h2>Category breakdowns</h2>
+    <p>Counts reflect the curated set shown on this page.</p>
+  </div>
+  <div class="breakdown-grid">
+    <div class="panel">
+      <h3>Country / Allegiance</h3>
+      <ul class="count-list">
+        {{ range $key, $val := $.Scratch.Get "country" }}
+          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
+        {{ end }}
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Theme</h3>
+      <ul class="count-list">
+        {{ range $key, $val := $.Scratch.Get "theme" }}
+          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
+        {{ end }}
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Artist / Designer</h3>
+      <ul class="count-list">
+        {{ range $key, $val := $.Scratch.Get "artist" }}
+          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
+        {{ end }}
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Year / Period</h3>
+      <ul class="count-list">
+        {{ range $key, $val := $.Scratch.Get "year" }}
+          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="gallery wrap">
+  <div class="section-title">
+    <h2>Selected posters</h2>
+    <p>Images are delivered directly from ContentDM IIIF image services.</p>
+  </div>
+  <div class="card-grid">
+    {{ range $index, $item := $items }}
+      {{ $thumb := printf "%s/full/700,/0/default.jpg" $item.image_service }}
+      {{ $large := printf "%s/full/1200,/0/default.jpg" $item.image_service }}
+      <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
+        <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
+          <img
+            src="{{ $thumb }}"
+            srcset="{{ $thumb }} 700w, {{ $large }} 1200w"
+            sizes="(max-width: 900px) 100vw, 33vw"
+            alt="{{ $item.title }}"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+        <div class="card-body">
+          <h3>{{ $item.title }}</h3>
+          <p class="meta">{{ $item.country }} · {{ $item.year }} · {{ $item.theme }}</p>
+          <p class="summary">{{ $item.summary }}</p>
+          <div class="chip-row">
+            <span class="chip">Artist: {{ $item.artist }}</span>
+            <a class="chip link" href="{{ $item.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
+            <a class="chip link" href="{{ $item.record }}" target="_blank" rel="noopener">Record</a>
+          </div>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</section>
+
+<section class="cta wrap">
+  <div class="cta-card">
+    <div>
+      <h2>Explore the full collection</h2>
+      <p>{{ $data.collection.title }} includes hundreds of posters. Use the manifest to build your own exhibit or remix the data.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn" href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">Collection page</a>
+      <a class="btn ghost" href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
+    </div>
+  </div>
+</section>
+{{ end }}
