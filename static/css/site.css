@@ -267,11 +267,37 @@ body::before {
   font-size: 0.98rem;
 }
 
+.card-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+}
+
+.card-meta dt {
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding-top: 2px;
+}
+
+.card-meta dd {
+  margin: 0;
+  color: var(--paper-ink);
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 6px;
+}
+
+.chip-row + .chip-row {
+  margin-top: 4px;
 }
 
 .chip {

@@ -24,17 +24,20 @@
   {{ $.Scratch.Set "country" (merge $countryCounts (dict $countryKey (add $countryValue 1))) }}
 
   {{ $themeCounts := $.Scratch.Get "theme" }}
-  {{ $themeKey := .theme }}
-  {{ $themeValue := index $themeCounts $themeKey | default 0 }}
-  {{ $.Scratch.Set "theme" (merge $themeCounts (dict $themeKey (add $themeValue 1))) }}
+  {{ range .themes }}
+    {{ $themeKey := . }}
+    {{ $themeValue := index $themeCounts $themeKey | default 0 }}
+    {{ $themeCounts = merge $themeCounts (dict $themeKey (add $themeValue 1)) }}
+  {{ end }}
+  {{ $.Scratch.Set "theme" $themeCounts }}
 
   {{ $artistCounts := $.Scratch.Get "artist" }}
-  {{ $artistKey := .artist }}
+  {{ $artistKey := .artist | default "Unknown" }}
   {{ $artistValue := index $artistCounts $artistKey | default 0 }}
   {{ $.Scratch.Set "artist" (merge $artistCounts (dict $artistKey (add $artistValue 1))) }}
 
   {{ $yearCounts := $.Scratch.Get "year" }}
-  {{ $yearKey := .year }}
+  {{ $yearKey := .date }}
   {{ $yearValue := index $yearCounts $yearKey | default 0 }}
   {{ $.Scratch.Set "year" (merge $yearCounts (dict $yearKey (add $yearValue 1))) }}
 {{ end }}
@@ -155,12 +158,11 @@
         </a>
         <div class="card-body">
           <h3>{{ $item.title }}</h3>
-          <p class="meta">{{ $item.country }} · {{ $item.year }} · {{ $item.theme }}</p>
-          <p class="summary">{{ $item.summary }}</p>
+          <p class="meta">{{ $item.country }} · {{ $item.date }} · {{ $item.language }}</p>
+          <p class="summary">{{ $item.description }}</p>
           <div class="chip-row">
-            <span class="chip">Artist: {{ $item.artist }}</span>
-            <a class="chip link" href="{{ $item.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
-            <a class="chip link" href="{{ $item.record }}" target="_blank" rel="noopener">Record</a>
+            {{ range $item.themes }}<span class="chip">{{ . }}</span>{{ end }}
+            {{ range $item.subjects }}<span class="chip">{{ . }}</span>{{ end }}
           </div>
         </div>
       </article>

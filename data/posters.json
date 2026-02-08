@@ -11,120 +11,288 @@
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3910",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3910/manifest.json",
       "country": "Great Britain",
-      "theme": "Recruitment",
+      "themes": [
+        "Recruitment"
+      ],
       "artist": "Frank Dadd",
-      "year": "1914",
-      "summary": "A veteran shakes hands with a uniformed soldier as recruits march behind."
+      "printer": "Straker Brothers",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "Dadd, Frank, 1851-1929, artist.; Straker Brothers, printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 63.",
+      "description": "A white-bearded veteran shakes the hand of a soldier in uniform. In the background, civilian recruits walk along behind a non-commissioned officer(?).",
+      "physical_description": "1 poster : col. ; 74 x 51 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Signed \"Frank Dadd.\" \"Poster No. 63(?).\" \"W TW.16178\" appears on bottom left of the poster. Orientation: Vertical."
     },
     {
       "title": "Daddy, what did you do in the great war?",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3914",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3914/manifest.json",
       "country": "Great Britain",
-      "theme": "Recruitment",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "Two children ask their father what he did to help in the war."
+      "themes": [
+        "Recruitment"
+      ],
+      "printer": "Johnson, Riddle & Co.",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "Johnson, Riddle & Co., printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 79.",
+      "description": "Two children are by their fathers side. The little girl sitting on her dads lap, asks him what he did to help in the great war. The father looks confused as to what to tell her.",
+      "physical_description": "1 poster : col. ; 76 x 51 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. \"Poster No. 79.\" Orientation: Vertical."
     },
     {
       "title": "Boys! come along",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3915",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3915/manifest.json",
       "country": "Great Britain",
-      "theme": "Recruitment",
-      "artist": "Unknown",
-      "year": "1915",
-      "summary": "A shadowed serviceman salutes beside a call to enlist."
+      "themes": [
+        "Recruitment"
+      ],
+      "printer": "David Allen & Sons",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "David Allen & Sons, printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1915",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 80.",
+      "description": "Illustration shows a shadowed figure of a serviceman saluting. Text says come along boys you are wanted.",
+      "physical_description": "1 poster : col. ; 51 x 76 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "\"Poster No. 80.\" \"W.417. 35M-4/15\" appears on the bottom right of poster. Orientation: Horizontal."
     },
     {
       "title": "Why not join the army",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3911",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3911/manifest.json",
       "country": "Great Britain",
-      "theme": "Recruitment",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "A direct call for eligible men to enlist."
+      "themes": [
+        "Recruitment"
+      ],
+      "printer": "Chorley & Pickersgill Ltd.",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "Chorley & Pickersgill Ltd., printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 64.",
+      "description": "A recruiting poster without pictorial content.",
+      "physical_description": "1 poster : col. ; 15 x 77 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. \"Poster No. 64.\" Orientation: Horizontal."
     },
     {
       "title": "We're both needed to serve the guns!",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3917",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3917/manifest.json",
       "country": "Great Britain",
-      "theme": "War Work/Relief",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "A serviceman and a worker shake hands to emphasize shared labor."
+      "themes": [
+        "Recruitment",
+        "War Work"
+      ],
+      "printer": "Chorley & Pickersgill",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "Chorley & Pickersgill, printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- War work -- Great Britain.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 85c.",
+      "description": "Text says that both the serviceman and the worker are needed to serve the guns; so fill up the ranks, and pile up the munitions. Illustration shows a serviceman shaking hands with a worker.",
+      "physical_description": "1 poster : col. ; 51 x 76 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates if 1st World War. \"Poster No. 85c.\" Orientation: Horizontal."
     },
     {
       "title": "Cold-blooded murder!",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3918",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3918/manifest.json",
       "country": "Great Britain",
-      "theme": "Propaganda",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "A text-only poster condemning atrocities and urging enlistment."
+      "themes": [
+        "Recruitment",
+        "Anti-German Propaganda"
+      ],
+      "printer": "Roberts & Leete",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "Roberts & Leete, printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "Propaganda, Anti-German -- Great Britain.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 97.",
+      "description": "Text says to remember Germany's crowning infamy and cold blooded murder of women and children. Don't let these crimes against God and man make you afraid of the German barbarians but instead do something, enlist to-day. No pictorial content.",
+      "physical_description": "1 poster : col. ; 101 x 64 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. \"Poster No. 97.\" \"W.2464/446\" appears on the bottom right of the poster. Orientation: Vertical."
     },
     {
       "title": "La victoire exposition",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3933",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3933/manifest.json",
       "country": "France",
-      "theme": "War Work/Relief",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "An exhibition poster in French supporting national committees."
+      "themes": [
+        "War Work"
+      ],
+      "printer": "Galerie Devambez Imp.",
+      "publisher": "Paris : Galerie Devambez, Imp.",
+      "contributor": "Galerie Devambez Imp., publisher, printer.",
+      "date": "1914-1918",
+      "language": "French",
+      "subjects": [
+        "World War, 1914-1918 -- War work -- France.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- France."
+      ],
+      "description": "Text in French says that there will be a victory exposition to profit the National Committee of Physical and Sport Education and Social Hygiene. It will be March 11th to and including April 1st. Illustration shows an angel with wings susspended in air, symbolic of victory.",
+      "physical_description": "1 poster : col. ; 119 x 78 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. \"Visa, No. 14.804.\" appears on the bottom right of poster. Orientation: Vertical."
     },
     {
       "title": "Exposition de l'enfance",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3934",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3934/manifest.json",
       "country": "France",
-      "theme": "War Work/Relief",
+      "themes": [
+        "Red Cross"
+      ],
       "artist": "N. Schawdandjian",
-      "year": "1918",
-      "summary": "A child paints a notice about a Red Cross exposition for children."
+      "publisher": "Paris : Etablissements Lecram",
+      "contributor": "Schawdandjian, N., artist.; Etablissements Lecram, publisher.",
+      "date": "1918",
+      "language": "French",
+      "subjects": [
+        "World War, 1914-1918 -- War work -- Red Cross.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- France."
+      ],
+      "description": "Text in French says that the exposition for the children is organized by the American Red Cross, Bureau of the Children, for freedom. Illustration shows a child standing on his baby table, painting a bulletin board which tells of the exposition for the children.",
+      "physical_description": "1 poster : col. ; 119 x 78 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Signed \"N. Schawdandjian.\" \"Visa No. 13.256.\" appears on the bottom right of poster. Orientation: Vertical."
     },
     {
       "title": "Join the Canadian Grenadier Guards for overseas service",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3957",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3957/manifest.json",
       "country": "Canada",
-      "theme": "Recruitment",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "A Grenadier Guardsman stands in uniform calling for enlistment."
+      "themes": [
+        "Recruitment"
+      ],
+      "printer": "Montreal Lithographing Co.",
+      "publisher": "Montreal : Montreal Lithographing Co. Limited",
+      "contributor": "Montreal Lithographing Co., lithographer.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Canada.",
+        "Canada -- Armed forces -- Recruiting, enlistment, etc."
+      ],
+      "description": "Text says to join the Canadian Grenadier Guards for overseas service. Illustration shows a Grenadier Guardsman.",
+      "physical_description": "1 poster : col. ; 104 x 70 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. Orientation: Vertical."
     },
     {
       "title": "Your country wants you",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3922",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3922/manifest.json",
       "country": "Great Britain",
-      "theme": "Recruitment",
-      "artist": "Unknown",
-      "year": "1914-1918",
-      "summary": "A bold headline urging men to enlist for the war effort."
+      "themes": [
+        "Recruitment"
+      ],
+      "printer": "C. W. Faulkner & Co.",
+      "publisher": "London : Parliamentary Recruiting Committee",
+      "contributor": "C. W. Faulkner & Co., printer.; Great Britain. Parliamentary Recruiting Committee, publisher.",
+      "date": "1914-1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters -- Great Britain.",
+        "Great Britain -- Armed forces -- Recruiting, enlistment, etc. -- World War, 1914-1918."
+      ],
+      "series": "Poster (Great Britain. Parliamentary Recruiting Committee) ; no. 102.",
+      "description": "Text says that your country wants you and 300,000 more men like you. Join now. No pictorial content.",
+      "physical_description": "1 poster : col. ; 98 x 62 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on dates of 1st World War. \"Poster No. 102.\" Orientation: Vertical."
     },
     {
       "title": "Ring it again",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3962",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3962/manifest.json",
       "country": "United States",
-      "theme": "War Bonds",
-      "artist": "Unknown",
-      "year": "1917-1918",
-      "summary": "The Liberty Bell promotes the United States Liberty Loan."
+      "themes": [
+        "War Bonds"
+      ],
+      "printer": "E. Ketterlinus & Co.",
+      "publisher": "Place of publication not identified : publisher not identified",
+      "contributor": "E. Ketterlinus & Co., printer.",
+      "date": "1917 or 1918",
+      "language": "English",
+      "subjects": [
+        "Liberty bonds -- United States.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters, American."
+      ],
+      "description": "Text says that the United States Liberty Loan is the safest investment in the world. Poster asks \"Have you bought your bond?\" Illustration shows the Liberty Bell.",
+      "physical_description": "1 poster : col. ; 72 x 52 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Date based on America's participation in the war. Orientation: Vertical."
     },
     {
       "title": "Help your Red Cross",
       "record": "https://digital.library.temple.edu/digital/collection/p16002coll9/id/3995",
       "manifest": "https://cdm16002.contentdm.oclc.org/iiif/p16002coll9:3995/manifest.json",
       "country": "United States",
-      "theme": "War Work/Relief",
+      "themes": [
+        "Red Cross"
+      ],
       "artist": "Hubert Chapin",
-      "year": "1917-1918",
-      "summary": "A church scene with a Red Cross nurse urging donations."
+      "printer": "Latham Litho & Ptg. Co.",
+      "publisher": "New York : Latham Litho & Ptg. Co.",
+      "contributor": "Chapin, Hubert, artist.; Latham Litho & Ptg. Co., lithographer, printer.",
+      "date": "1917 or 1918",
+      "language": "English",
+      "subjects": [
+        "World War, 1914-1918 -- War work -- Red Cross.",
+        "World War, 1914-1918 -- Propaganda.",
+        "War posters, American."
+      ],
+      "description": "Text says to please help the Red Cross. Illustration shows a church with a giant Jesus above and the Red Cross sign above him. A Red Cross nurse is seen helping a man step up from the earth.",
+      "physical_description": "1 poster : col. ; 56 x 36 cm.",
+      "repository_collection": "George F. Tyler Poster Collection",
+      "note": "Signed \"Hubert Chapin.\" Date based on America's participation in the war. Orientation: Vertical."
     }
   ]
 }

@@ -10,15 +10,17 @@
 {{ $items := site.Data.posters.items }}
 {{ $themes := slice }}
 {{ range $items }}
-  {{ if not (in $themes .theme) }}
-    {{ $themes = $themes | append .theme }}
+  {{ range .themes }}
+    {{ if not (in $themes .) }}
+      {{ $themes = $themes | append . }}
+    {{ end }}
   {{ end }}
 {{ end }}
 {{ $themes = sort $themes }}
 
 {{ range $themes }}
   {{ $theme := . }}
-  {{ $themeItems := where $items "theme" $theme }}
+  {{ $themeItems := where $items "themes" "intersect" (slice $theme) }}
   <section class="wrap">
     <div class="section-title">
       <h2>{{ $theme }}</h2>
@@ -94,12 +96,11 @@
           </a>
           <div class="card-body">
             <h3>{{ $item.title }}</h3>
-            <p class="meta">{{ $item.country }} · {{ $item.year }} · {{ $item.theme }}</p>
-            <p class="summary">{{ $item.summary }}</p>
+            <p class="meta">{{ $item.country }} · {{ $item.date }} · {{ $item.language }}</p>
+            <p class="summary">{{ $item.description }}</p>
             <div class="chip-row">
-              <span class="chip">Artist: {{ $item.artist }}</span>
-              <a class="chip link" href="{{ $item.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
-              <a class="chip link" href="{{ $item.record }}" target="_blank" rel="noopener">Record</a>
+              {{ range $item.themes }}<span class="chip">{{ . }}</span>{{ end }}
+              {{ range $item.subjects }}<span class="chip">{{ . }}</span>{{ end }}
             </div>
           </div>
         </article>
