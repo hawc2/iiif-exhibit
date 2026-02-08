@@ -111,6 +111,32 @@
               {{ end }}
             {{ end }}
           {{ end }}
+          {{ if eq $image "" }}
+            {{ $thumb := index $canvas "thumbnail" }}
+            {{ if $thumb }}
+              {{ $thumbObj := $thumb }}
+              {{ if reflect.IsSlice $thumb }}
+                {{ $thumbObj = index $thumb 0 }}
+              {{ end }}
+              {{ $thumbId := index $thumbObj "@id" }}
+              {{ if $thumbId }}
+                {{ $image = $thumbId }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if eq $image "" }}
+        {{ $manifestThumb := index $manifest "thumbnail" }}
+        {{ if $manifestThumb }}
+          {{ $thumbObj := $manifestThumb }}
+          {{ if reflect.IsSlice $manifestThumb }}
+            {{ $thumbObj = index $manifestThumb 0 }}
+          {{ end }}
+          {{ $thumbId := index $thumbObj "@id" }}
+          {{ if $thumbId }}
+            {{ $image = $thumbId }}
+          {{ end }}
         {{ end }}
       {{ end }}
       {{ if and (eq $image "") (ne $service "") }}
