@@ -238,35 +238,6 @@ body::before {
   height: 100%;
   object-fit: cover;
   display: block;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.image-frame.is-loaded img {
-  opacity: 1;
-}
-
-.image-status {
-  position: absolute;
-  inset: auto 16px 16px 16px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255, 250, 243, 0.9);
-  color: var(--muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: opacity 0.35s ease;
-}
-
-.image-frame.is-loaded .image-status {
-  opacity: 0;
-}
-
-.image-frame.is-error .image-status {
-  opacity: 1;
-  background: rgba(28, 26, 22, 0.85);
-  color: #fffaf3;
 }
 
 .card-body {

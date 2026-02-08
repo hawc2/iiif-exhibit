@@ -87,18 +87,35 @@
   </div>
   <div class="card-grid">
     {{ range $index, $item := $items }}
+      {{ $manifest := getJSON $item.manifest }}
+      {{ $service := "" }}
+      {{ with $manifest }}
+        {{ $seq := index .sequences 0 }}
+        {{ $canvas := index $seq.canvases 0 }}
+        {{ $image := index $canvas.images 0 }}
+        {{ $resource := $image.resource }}
+        {{ with $resource.service }}
+          {{ if reflect.IsSlice . }}
+            {{ $svc := index . 0 }}
+            {{ $service = (index $svc "@id") | default (index $svc "id") }}
+          {{ else }}
+            {{ $service = (index . "@id") | default (index . "id") }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ $thumb := printf "%s/full/700,/0/default.jpg" $service }}
+      {{ $large := printf "%s/full/1200,/0/default.jpg" $service }}
       <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
         <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
-          <div class="image-frame is-loading">
+          <div class="image-frame">
             <img
-              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='900'%3E%3C/svg%3E"
-              data-iiif-manifest="{{ $item.manifest }}"
-              data-iiif-title="{{ $item.title }}"
+              src="{{ $thumb }}"
+              srcset="{{ $thumb }} 700w, {{ $large }} 1200w"
+              sizes="(max-width: 900px) 100vw, 33vw"
               alt="{{ $item.title }}"
               loading="lazy"
               decoding="async"
             />
-            <span class="image-status">Loading IIIF image...</span>
           </div>
         </a>
         <div class="card-body">
