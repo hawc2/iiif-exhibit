@@ -87,9 +87,9 @@
   </div>
   <div class="card-grid">
     {{ range $index, $item := $items }}
-      {{ $service := $item.manifest | replace "/iiif/" "/iiif/2/" | replace "/manifest.json" "" }}
+      {{ $service := replace (replace $item.manifest "/iiif/" "/iiif/2/") "/manifest.json" "" }}
       {{ $info := getJSON (printf "%s/info.json" $service) }}
-      {{ $sizes := $info.sizes | default (slice) }}
+      {{ $sizes := $info.sizes | default (slice (dict "width" 1200 "height" 1600)) }}
       {{ $sizeCount := len $sizes }}
       {{ $largeIndex := sub $sizeCount 1 }}
       {{ $thumbIndex := cond (gt $sizeCount 2) (sub $sizeCount 3) (cond (gt $sizeCount 1) (sub $sizeCount 2) $largeIndex) }}
@@ -102,7 +102,7 @@
           <div class="image-frame">
             <img
               src="{{ $thumb }}"
-              srcset="{{ $thumb }} 700w, {{ $large }} 1200w"
+              srcset="{{ $thumb }} {{ $thumbSize.width }}w, {{ $large }} {{ $largeSize.width }}w"
               sizes="(max-width: 900px) 100vw, 33vw"
               alt="{{ $item.title }}"
               loading="lazy"
