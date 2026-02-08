@@ -1,4 +1,4 @@
-baseURL = "https://hawc2.github.io/iiif-exhibit/"
+baseURL = "https://hawc2.github.io/iiif-warposters-exhibit/"
 languageCode = "en-us"
 title = "Allied War Posters: IIIF Exhibit"
 disableKinds = ["taxonomy", "term", "RSS", "sitemap"]

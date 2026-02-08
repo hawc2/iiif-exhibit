@@ -1,111 +1,47 @@
 {{ define "main" }}
 <section class="hero">
   <div class="wrap">
-    <p class="eyebrow">Category</p>
+    <p class="eyebrow">Browse</p>
     <h1>{{ .Title }}</h1>
     <div class="lead">{{ .Content }}</div>
   </div>
 </section>
 
 {{ $items := site.Data.posters.items }}
-{{ $themes := slice }}
-{{ range $items }}
-  {{ range .themes }}
-    {{ if not (in $themes .) }}
-      {{ $themes = $themes | append . }}
-    {{ end }}
-  {{ end }}
-{{ end }}
-{{ $themes = sort $themes }}
 
-{{ range $themes }}
-  {{ $theme := . }}
-  {{ $themeItems := where $items "themes" "intersect" (slice $theme) }}
-  <section class="wrap">
-    <div class="section-title">
-      <h2>{{ $theme }}</h2>
-      <p>{{ len $themeItems }} posters</p>
-    </div>
-    <div class="card-grid">
-      {{ range $index, $item := $themeItems }}
-        {{ $image := "" }}
-        {{ $service := "" }}
-        {{ $manifest := (resources.GetRemote $item.manifest) | transform.Unmarshal }}
-        {{ $seq := index $manifest.sequences 0 }}
-        {{ if $seq }}
-          {{ $canvas := index $seq.canvases 0 }}
-          {{ if $canvas }}
-            {{ $img := index $canvas.images 0 }}
-            {{ if $img }}
-              {{ $res := $img.resource }}
-              {{ if $res }}
-                {{ $resId := index $res "@id" }}
-                {{ if $resId }}
-                  {{ $image = $resId }}
-                {{ end }}
-                {{ $svc := index $res "service" }}
-                {{ if $svc }}
-                  {{ $svcId := index $svc "@id" }}
-                  {{ if $svcId }}
-                    {{ $service = $svcId }}
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-            {{ if eq $image "" }}
-              {{ $thumb := index $canvas "thumbnail" }}
-              {{ if $thumb }}
-                {{ $thumbObj := $thumb }}
-                {{ if reflect.IsSlice $thumb }}
-                  {{ $thumbObj = index $thumb 0 }}
-                {{ end }}
-                {{ $thumbId := index $thumbObj "@id" }}
-                {{ if $thumbId }}
-                  {{ $image = $thumbId }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
+<section class="wrap">
+  <div class="card-grid">
+    {{ range .Pages }}
+      {{ $subthemes := .Params.subthemes }}
+      {{ $themeItems := slice }}
+      {{ if $subthemes }}
+        {{ range $subthemes }}
+          {{ $sub := where $items "themes" "intersect" (slice .theme) }}
+          {{ $themeItems = $themeItems | append $sub }}
         {{ end }}
-        {{ if eq $image "" }}
-          {{ $manifestThumb := index $manifest "thumbnail" }}
-          {{ if $manifestThumb }}
-            {{ $thumbObj := $manifestThumb }}
-            {{ if reflect.IsSlice $manifestThumb }}
-              {{ $thumbObj = index $manifestThumb 0 }}
-            {{ end }}
-            {{ $thumbId := index $thumbObj "@id" }}
-            {{ if $thumbId }}
-              {{ $image = $thumbId }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-        {{ if and (eq $image "") (ne $service "") }}
-          {{ $image = printf "%s/full/full/0/default.jpg" $service }}
-        {{ end }}
-        <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
-          <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
-            <div class="image-frame">
-              <img
-                src="{{ $image }}"
-                alt="{{ $item.title }}"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-          </a>
-          <div class="card-body">
-            <h3>{{ $item.title }}</h3>
-            <p class="meta">{{ $item.country }} · {{ $item.date }} · {{ $item.language }}</p>
-            <p class="summary">{{ $item.description }}</p>
-            <div class="chip-row">
-              {{ range $item.themes }}<span class="chip">{{ . }}</span>{{ end }}
-              {{ range $item.subjects }}<span class="chip">{{ . }}</span>{{ end }}
-            </div>
-          </div>
-        </article>
+      {{ else }}
+        {{ $themeItems = where $items "themes" "intersect" (slice .Params.theme) }}
       {{ end }}
-    </div>
-  </section>
-{{ end }}
+      {{ $first := index $themeItems 0 }}
+      {{ $image := partial "iiif-image.html" $first }}
+      <article class="card reveal">
+        <a class="image-link" href="{{ .RelPermalink }}">
+          <div class="image-frame">
+            <img
+              src="{{ $image }}"
+              alt="{{ .Title }}"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </a>
+        <div class="card-body">
+          <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p class="meta">{{ len $themeItems }} posters</p>
+          <p class="summary">{{ .Params.description }}</p>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+</section>
 {{ end }}

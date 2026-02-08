@@ -2,19 +2,21 @@
 {{ $data := site.Data.posters }}
 {{ $items := $data.items }}
 
+{{ $featured := where $items "featured" true }}
+{{ $heroItem := index $featured 0 }}
+{{ $heroImage := partial "iiif-image.html" $heroItem }}
+
 <section class="hero wrap">
+  <div class="frontispiece">
+    <img src="{{ $heroImage }}" alt="{{ $heroItem.title }}" loading="eager" decoding="async" />
+  </div>
   <p class="kicker">IIIF Exhibit</p>
   <h1>{{ .Title }}</h1>
-  <p class="lead">{{ .Params.description }}</p>
-  <div class="hero-actions">
-    <a class="btn" href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">View the full collection</a>
-    <a class="btn ghost" href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF collection manifest</a>
-  </div>
+  <p class="lead">A curated selection of Allied propaganda posters from the First World War, drawn from the <a href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">George F. Tyler Poster Collection</a> at Temple University Libraries. All images are served via the <a href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF collection manifest</a>.</p>
 </section>
 
 {{ $.Scratch.Set "country" (dict) }}
 {{ $.Scratch.Set "theme" (dict) }}
-{{ $.Scratch.Set "artist" (dict) }}
 {{ $.Scratch.Set "year" (dict) }}
 
 {{ range $items }}
@@ -30,11 +32,6 @@
     {{ $themeCounts = merge $themeCounts (dict $themeKey (add $themeValue 1)) }}
   {{ end }}
   {{ $.Scratch.Set "theme" $themeCounts }}
-
-  {{ $artistCounts := $.Scratch.Get "artist" }}
-  {{ $artistKey := .artist | default "Unknown" }}
-  {{ $artistValue := index $artistCounts $artistKey | default 0 }}
-  {{ $.Scratch.Set "artist" (merge $artistCounts (dict $artistKey (add $artistValue 1))) }}
 
   {{ $yearCounts := $.Scratch.Get "year" }}
   {{ $yearKey := .date }}
@@ -60,15 +57,7 @@
       <h3>Theme</h3>
       <ul class="count-list">
         {{ range $key, $val := $.Scratch.Get "theme" }}
-          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
-        {{ end }}
-      </ul>
-    </div>
-    <div class="panel">
-      <h3>Artist / Designer</h3>
-      <ul class="count-list">
-        {{ range $key, $val := $.Scratch.Get "artist" }}
-          <li><span>{{ $key }}</span><span>{{ $val }}</span></li>
+          <li><span><a href="{{ printf "themes/%s/" ($key | urlize) | relURL }}">{{ $key }}</a></span><span>{{ $val }}</span></li>
         {{ end }}
       </ul>
     </div>
@@ -85,66 +74,12 @@
 
 <section class="gallery wrap">
   <div class="section-title">
-    <h2>Selected posters</h2>
-    <p>Images are rendered from IIIF Image API sizes published per item.</p>
+    <h2>Featured posters</h2>
+    <p>A curated selection across themes. Images served via the IIIF Image API.</p>
   </div>
   <div class="card-grid">
-    {{ range $index, $item := $items }}
-      {{ $image := "" }}
-      {{ $service := "" }}
-      {{ $manifest := (resources.GetRemote $item.manifest) | transform.Unmarshal }}
-      {{ $seq := index $manifest.sequences 0 }}
-      {{ if $seq }}
-        {{ $canvas := index $seq.canvases 0 }}
-        {{ if $canvas }}
-          {{ $img := index $canvas.images 0 }}
-          {{ if $img }}
-            {{ $res := $img.resource }}
-            {{ if $res }}
-              {{ $resId := index $res "@id" }}
-              {{ if $resId }}
-                {{ $image = $resId }}
-              {{ end }}
-              {{ $svc := index $res "service" }}
-              {{ if $svc }}
-                {{ $svcId := index $svc "@id" }}
-                {{ if $svcId }}
-                  {{ $service = $svcId }}
-                {{ end }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-          {{ if eq $image "" }}
-            {{ $thumb := index $canvas "thumbnail" }}
-            {{ if $thumb }}
-              {{ $thumbObj := $thumb }}
-              {{ if reflect.IsSlice $thumb }}
-                {{ $thumbObj = index $thumb 0 }}
-              {{ end }}
-              {{ $thumbId := index $thumbObj "@id" }}
-              {{ if $thumbId }}
-                {{ $image = $thumbId }}
-              {{ end }}
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-      {{ if eq $image "" }}
-        {{ $manifestThumb := index $manifest "thumbnail" }}
-        {{ if $manifestThumb }}
-          {{ $thumbObj := $manifestThumb }}
-          {{ if reflect.IsSlice $manifestThumb }}
-            {{ $thumbObj = index $manifestThumb 0 }}
-          {{ end }}
-          {{ $thumbId := index $thumbObj "@id" }}
-          {{ if $thumbId }}
-            {{ $image = $thumbId }}
-          {{ end }}
-        {{ end }}
-      {{ end }}
-      {{ if and (eq $image "") (ne $service "") }}
-        {{ $image = printf "%s/full/full/0/default.jpg" $service }}
-      {{ end }}
+    {{ range $index, $item := $featured }}
+      {{ $image := partial "iiif-image.html" $item }}
       <article class="card reveal" style="--delay: {{ mul $index 0.06 }}s;">
         <a class="image-link" href="{{ $item.record }}" target="_blank" rel="noopener">
           <div class="image-frame">
@@ -158,14 +93,50 @@
         </a>
         <div class="card-body">
           <h3>{{ $item.title }}</h3>
-          <p class="meta">{{ $item.country }} · {{ $item.date }} · {{ $item.language }}</p>
+          <p class="meta">{{ $item.country }} · {{ $item.date }}{{ with $item.artist }} · {{ . }}{{ end }}</p>
           <p class="summary">{{ $item.description }}</p>
           <div class="chip-row">
-            {{ range $item.themes }}<span class="chip">{{ . }}</span>{{ end }}
-            {{ range $item.subjects }}<span class="chip">{{ . }}</span>{{ end }}
+            {{ range $item.themes }}<a class="chip link" href="{{ printf "themes/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}
           </div>
+          {{ with $item.subjects }}<div class="chip-row">
+            {{ range . }}<span class="chip">{{ . }}</span>{{ end }}
+          </div>{{ end }}
         </div>
       </article>
+    {{ end }}
+  </div>
+</section>
+
+{{ $themePages := where site.RegularPages "Section" "themes" }}
+<section class="themes-browse wrap">
+  <div class="section-title">
+    <h2>Browse by theme</h2>
+    <p>{{ len $themePages }} themes · {{ len $items }} posters in total</p>
+  </div>
+  <div class="theme-grid">
+    {{ range $themePages }}
+      {{ $subthemes := .Params.subthemes }}
+      {{ $themeItems := slice }}
+      {{ if $subthemes }}
+        {{ range $subthemes }}
+          {{ $sub := where $items "themes" "intersect" (slice .theme) }}
+          {{ $themeItems = $themeItems | append $sub }}
+        {{ end }}
+      {{ else }}
+        {{ $themeItems = where $items "themes" "intersect" (slice .Params.theme) }}
+      {{ end }}
+      {{ $first := index $themeItems 0 }}
+      {{ $image := partial "iiif-image.html" $first }}
+      <a class="theme-card" href="{{ .RelPermalink }}">
+        <div class="theme-card-image">
+          <img src="{{ $image }}" alt="{{ .Title }}" loading="lazy" decoding="async" />
+        </div>
+        <div class="theme-card-body">
+          <h3>{{ .Title }}</h3>
+          <p class="meta">{{ len $themeItems }} posters</p>
+          <p class="summary">{{ .Params.description }}</p>
+        </div>
+      </a>
     {{ end }}
   </div>
 </section>
@@ -174,11 +145,7 @@
   <div class="cta-card">
     <div>
       <h2>Explore the full collection</h2>
-      <p>{{ $data.collection.title }} includes hundreds of posters. Use the manifest to build your own exhibit or remix the data.</p>
-    </div>
-    <div class="cta-actions">
-      <a class="btn" href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">Collection page</a>
-      <a class="btn ghost" href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF manifest</a>
+      <p>The {{ $data.collection.title }} at Temple University Libraries includes hundreds of posters beyond this curated set. Browse the <a href="{{ $data.collection.collection_page }}" target="_blank" rel="noopener">full digital collection</a> or use the <a href="{{ $data.collection.manifest }}" target="_blank" rel="noopener">IIIF manifest</a> to build your own exhibit.</p>
     </div>
   </div>
 </section>

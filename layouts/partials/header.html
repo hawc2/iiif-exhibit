@@ -1,15 +1,24 @@
+{{ $items := site.Data.posters.items }}
+{{ $featured := where $items "featured" true }}
+{{ $avatarItem := index $featured 1 }}
+{{ $avatarImage := partial "iiif-image.html" $avatarItem }}
+
 <header class="site-header">
   <div class="wrap">
-    <div class="brand">
-      <div class="brand-mark">IIIF</div>
+    <a class="brand" href="{{ "/" | relURL }}">
+      <div class="brand-avatar">
+        <img src="{{ $avatarImage }}" alt="War poster" />
+      </div>
       <div>
         <p class="brand-title">Allied War Posters</p>
         <p class="brand-subtitle">Temple University Libraries</p>
       </div>
-    </div>
-    <div class="header-cta">
-      <a class="btn ghost" href="{{ "themes/" | relURL }}">Browse themes</a>
-      <a class="btn ghost" href="https://cdm16002.contentdm.oclc.org/iiif/info/p16002coll9/manifest.json" target="_blank" rel="noopener">Collection Manifest</a>
-    </div>
+    </a>
+    <nav class="header-nav">
+      {{ $themePages := where site.RegularPages "Section" "themes" }}
+      {{ range $themePages }}
+        <a class="nav-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}
+    </nav>
   </div>
 </header>
